@@ -1,0 +1,9 @@
+//SEMENTARA PAKE LOKAL GANACHE DULU, Untuk pengembangan selanjutnya pake sepolia
+//ABAIKAN folder smartContract
+
+created contract address uji coba = 0xE520716B63c34E9Fc9cd6C84D3E9c7C8cd3cF1C6
+
+CARA RUN =
+- Buka Ganache, pastiin sistem blockchain jalan 
+- Jalankan backend, node server.js (di path server/server.js)
+- buka login.html/langsung index.html in live 

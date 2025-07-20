@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Masuk - RantaiSehat</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome for Google icon -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="shortcut icon" type="image/x-icon" href="/img/logo-trans.png" />
+    <link rel="stylesheet" href="/client/login.css" />
+  </head>
+  <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="login-container">
+      <div class="logo-container">
+        <img src="/img/logo-trans.png" alt="RantaiSehat Logo" />
+        <!-- <h1>RantaiSehat</h1> -->
+        <!-- Hapus elemen h1 ini -->
+      </div>
+      <h2 id="welcomeText" class="text-welcome"></h2>
+      <!-- Teks dikosongkan di HTML -->
+      <p class="text-description">
+        Silakan masuk untuk melanjutkan ke sistem manajemen stok farmasi yang
+        cerdas dan transparan.
+      </p>
+
+      <button id="signInWithGoogleBtn" class="btn-google">
+        <i class="fab fa-google"></i> Masuk dengan Google
+      </button>
+      <div id="errorMessage" class="alert-message"></div>
+    </div>
+
+    <!-- Background Bubbles -->
+    <ul class="background-bubbles">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+
+    <!-- Firebase SDK (using compat versions for simplicity with existing app.js structure) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+    <script>
+      // Konfigurasi Firebase Anda (harus sama dengan di app.js)
+      const firebaseConfig = {
+        apiKey: "AIzaSyAtSg18CK3hhCfhBHTIfDO-HMbfaITR03s", // <-- PASTIKAN KUNCI API INI VALID DARI FIREBASE CONSOLE ANDA!
+        authDomain: "rantaisehat-tech.firebaseapp.com", // <-- PASTIKAN AUTH DOMAIN ANDA
+        projectId: "rantaisehat-tech",
+        storageBucket: "rantaisehat-tech.firebaseystorage.app",
+        messagingSenderId: "944193953926",
+        appId: "1:944193953926:web:bbb9f219628295df14f107",
+        measurementId: "G-04PQCZF45D", // Jika ada
+      };
+
+      // Inisialisasi Firebase
+      const app = firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const provider = new firebase.auth.GoogleAuthProvider();
+
+      const signInWithGoogleBtn = document.getElementById(
+        "signInWithGoogleBtn"
+      );
+      const errorMessageDiv = document.getElementById("errorMessage");
+      const welcomeTextElement = document.getElementById("welcomeText");
+      const originalWelcomeText = "Selamat Datang"; // Teks asli untuk animasi
+      const TYPING_DURATION = 3500; // Durasi animasi mengetik dalam ms (3.5s)
+      const DISPLAY_DURATION = 2000; // Durasi tampilan teks setelah selesai mengetik dalam ms (2s)
+      const FADE_OUT_DURATION = 500; // Durasi fade out dalam ms (0.5s)
+
+      // Fungsi untuk menampilkan pesan error
+      function showErrorMessage(message) {
+        errorMessageDiv.textContent = message;
+        errorMessageDiv.style.display = "block";
+      }
+
+      // Fungsi untuk menyembunyikan pesan error
+      function hideErrorMessage() {
+        errorMessageDiv.style.display = "none";
+        errorMessageDiv.textContent = "";
+      }
+
+      // Fungsi untuk mengulang animasi mengetik
+      function animateWelcomeTextLoop() {
+        // 1. Reset elemen untuk memulai animasi baru
+        welcomeTextElement.textContent = "";
+        welcomeTextElement.classList.remove("typing-active");
+        welcomeTextElement.style.opacity = "0"; // Pastikan tersembunyi sebelum mulai mengetik
+        welcomeTextElement.style.width = "0"; // Reset lebar untuk animasi
+
+        // Force reflow to ensure animations restart
+        void welcomeTextElement.offsetWidth;
+
+        // 2. Mulai mengetik setelah sedikit penundaan
+        setTimeout(() => {
+          welcomeTextElement.textContent = originalWelcomeText;
+          welcomeTextElement.classList.add("typing-active");
+          welcomeTextElement.style.opacity = "1"; // Fade in saat mulai mengetik
+        }, 100); // Penundaan singkat sebelum memulai animasi
+
+        // 3. Setelah animasi mengetik selesai, biarkan tampil sebentar lalu fade out
+        setTimeout(() => {
+          welcomeTextElement.classList.remove("typing-active"); // Hentikan animasi mengetik dan kursor
+          welcomeTextElement.style.opacity = "0"; // Mulai fade out
+
+          // 4. Setelah fade out selesai, mulai loop lagi
+          setTimeout(() => {
+            animateWelcomeTextLoop(); // Restart the animation loop
+          }, FADE_OUT_DURATION); // Tunggu sampai fade out selesai
+        }, TYPING_DURATION + DISPLAY_DURATION); // Total waktu sebelum fade out dimulai
+      }
+
+      // Event listener untuk tombol login Google
+      signInWithGoogleBtn.addEventListener("click", async () => {
+        hideErrorMessage(); // Sembunyikan pesan error sebelumnya
+
+        try {
+          // Menggunakan signInWithPopup untuk alur login yang lebih mudah
+          await auth.signInWithPopup(provider);
+          // Jika berhasil, pengguna akan diarahkan ke index.html oleh onAuthStateChanged di app.js
+          window.location.href = "index.html";
+        } catch (error) {
+          console.error("Error during Google sign-in:", error);
+          let message =
+            "Terjadi kesalahan saat masuk dengan Google. Silakan coba lagi.";
+          if (error.code === "auth/popup-closed-by-user") {
+            message = "Login dibatalkan oleh pengguna.";
+          } else if (error.code === "auth/cancelled-popup-request") {
+            message =
+              "Permintaan login dibatalkan. Mungkin pop-up sudah terbuka.";
+          } else if (error.code === "auth/operation-not-allowed") {
+            message =
+              "Metode masuk Google belum diaktifkan di Firebase Console atau domain tidak diizinkan.";
+          } else if (error.code === "auth/network-request-failed") {
+            message =
+              "Gagal terhubung ke server. Periksa koneksi internet Anda.";
+          } else if (error.code === "auth/unauthorized-domain") {
+            message =
+              "Domain saat ini tidak diizinkan untuk operasi OAuth. Mohon tambahkan domain Anda (misalnya 127.0.0.1 atau localhost) di konsol Firebase > Authentication > Settings > Authorized domains.";
+          }
+          showErrorMessage(message);
+        }
+      });
+
+      // Cek status autentikasi saat halaman dimuat
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          // Jika pengguna sudah login, arahkan ke halaman utama
+          window.location.href = "index.html";
+        } else {
+          // Jika belum login, mulai animasi mengetik
+          animateWelcomeTextLoop();
+        }
+      });
+    </script>
+  </body>
+</html>

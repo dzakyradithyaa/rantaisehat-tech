@@ -1,0 +1,335 @@
+/* Definisi Warna Kustom (Glassmorphism Gelap - Hitam Netral) */
+:root {
+  --background-light-dark: #1c1c1c; /* Sangat gelap, abu-abu kehitaman */
+  --background-dark-dark: #0a0a0a; /* Hampir hitam murni */
+  --glass-bg-color: rgba(
+    255,
+    255,
+    255,
+    0.08
+  ); /* Sangat transparan putih untuk efek kaca */
+  --glass-border-color: rgba(255, 255, 255, 0.15); /* Border putih transparan */
+  --glass-shadow-color: rgba(0, 0, 0, 0.3); /* Bayangan lebih gelap */
+
+  --text-primary: #e0e0e0; /* Light Gray */
+  --text-secondary: #b0b0b0; /* Medium Light Gray */
+  --accent-color: #3db97f; /* Tetap hijau RantaiSehat untuk logo */
+
+  /* Warna tombol Google yang disesuaikan */
+  --google-button-bg: #333333; /* Dark gray */
+  --google-button-border: #444444; /* Slightly lighter dark gray */
+  --google-button-text: #ffffff; /* White text for contrast */
+  --google-button-hover-bg: #4a4a4a; /* Darker gray on hover */
+
+  --error-red: #ef4444; /* Red-500 */
+  --error-bg: rgba(254, 226, 226, 0.8); /* Red-100 transparan */
+  --error-border: #f87171; /* Red-400 */
+
+  /* Warna untuk glow hijau */
+  --green-glow-light: rgba(
+    61,
+    185,
+    127,
+    0.15
+  ); /* Lebih terang, sedikit kurang opaque */
+  --green-glow-medium: rgba(61, 185, 127, 0.25); /* Sedang */
+  --green-glow-strong: rgba(61, 185, 127, 0.35); /* Lebih kuat */
+  /* Warna untuk glow blockchain */
+  --blockchain-glow-blue: rgba(65, 105, 225, 0.2); /* Royal Blue transparan */
+  --blockchain-glow-purple: rgba(
+    147,
+    112,
+    219,
+    0.2
+  ); /* Medium Purple transparan */
+}
+
+/* Custom styles to override or extend Tailwind */
+body {
+  font-family: "Inter", sans-serif;
+  background: linear-gradient(
+    135deg,
+    var(--background-light-dark) 0%,
+    var(--background-dark-dark) 100%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+}
+.login-container {
+  background: var(--glass-bg-color); /* Latar belakang transparan */
+  backdrop-filter: blur(20px); /* Efek kaca buram */
+  -webkit-backdrop-filter: blur(20px); /* Dukungan Safari */
+  border: 1px solid var(--glass-border-color); /* Border transparan */
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 32px 0 var(--glass-shadow-color); /* Bayangan halus */
+
+  text-align: center;
+  width: 100%;
+  max-width: 440px;
+  transform: translateY(0);
+  animation: fadeInSlideUp 0.9s ease-out forwards;
+  position: relative;
+  z-index: 10;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  will-change: transform, box-shadow;
+}
+.login-container:hover {
+  transform: translateY(-8px); /* Lebih naik saat hover */
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.2); /* Bayangan lebih kuat */
+}
+
+/* Keyframes for smoother fade and slide up */
+@keyframes fadeInSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.btn-google {
+  background-color: var(--google-button-bg);
+  color: var(--google-button-text);
+  border: 1px solid var(--google-button-border);
+  padding: 0.875rem 1.75rem;
+  border-radius: 0.75rem;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    transform 0.2s ease, box-shadow 0.3s ease;
+  font-weight: 500;
+  box-shadow: 0 2px 5px var(--glass-shadow-color);
+  will-change: transform, box-shadow;
+}
+.btn-google:hover {
+  background-color: var(--google-button-hover-bg);
+  border-color: #666666; /* Slightly darker gray on hover */
+  transform: translateY(-4px); /* Lebih naik */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Bayangan lebih kuat */
+}
+.btn-google i {
+  margin-right: 0.75rem;
+  font-size: 1.3rem;
+}
+.alert-message {
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: var(--error-red);
+  display: none;
+  background-color: var(--error-bg);
+  border: 1px solid var(--error-border);
+  padding: 0.8rem;
+  border-radius: 0.6rem;
+  font-weight: 500;
+}
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.logo-container img {
+  height: 60px;
+  /* margin-right: 0.8rem; */ /* Hapus margin kanan karena tidak ada teks di sampingnya */
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+/* Hapus styling h1 karena tidak lagi digunakan */
+/* .logo-container h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--accent-color);
+        letter-spacing: -0.04em;
+    } */
+.text-welcome {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.8rem;
+  white-space: nowrap; /* Penting untuk efek mengetik */
+  overflow: hidden; /* Sembunyikan teks yang belum diketik */
+  border-right: 0.15em solid transparent; /* Awalnya transparan */
+  width: 0; /* Mulai dengan lebar 0 */
+  margin-left: auto; /* Pusatkan teks */
+  margin-right: auto; /* Pusatkan teks */
+  display: inline-block; /* Agar width berfungsi */
+  opacity: 0; /* Awalnya tersembunyi */
+  transition: opacity 0.5s ease-out; /* Transisi untuk fade in/out */
+  min-height: 3.5rem; /* Menjaga tinggi elemen agar kartu tidak menyusut */
+}
+
+/* Kelas untuk memicu animasi mengetik dan kursor */
+.text-welcome.typing-active {
+  border-color: var(--text-primary); /* Kursor terlihat saat animasi dimulai */
+  animation: typing 3.5s steps(30, end) forwards,
+    /* Animasi mengetik */ blink-caret 0.75s step-end infinite; /* Animasi kursor berkedip terus */
+  opacity: 1; /* Pastikan terlihat saat aktif */
+}
+
+/* Keyframes untuk efek mengetik */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* Keyframes untuk kursor berkedip */
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: var(--text-primary);
+  }
+}
+
+.text-description {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+/* Background Bubbles/Circles Animation - Sekarang Kotak dengan Glow Hijau dan Biru/Ungu */
+.background-bubbles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1; /* Behind the login container */
+}
+
+.background-bubbles li {
+  position: absolute;
+  display: block;
+  list-style: none;
+  width: 20px;
+  height: 20px;
+  /* Menggunakan gradien untuk memberikan kesan 'blok' yang lebih solid namun transparan */
+  background: linear-gradient(
+    135deg,
+    var(--green-glow-light) 0%,
+    var(--blockchain-glow-blue) 100%
+  );
+  animation: animateBubbles 25s linear infinite;
+  bottom: -180px; /* Start further below the screen */
+  border-radius: 0; /* Membuatnya kotak */
+  /* Kombinasi shadow untuk efek glow multi-warna */
+  box-shadow: 0 0 10px var(--green-glow-medium),
+    0 0 20px var(--green-glow-strong), 0 0 30px var(--blockchain-glow-blue),
+    0 0 40px var(--blockchain-glow-purple); /* Efek glow hijau dan biru/ungu */
+  border: 1px solid rgba(255, 255, 255, 0.05); /* Border sangat halus */
+}
+
+/* Individual bubble properties for variety */
+.background-bubbles li:nth-child(1) {
+  left: 25%;
+  width: 90px;
+  height: 90px;
+  animation-delay: 0s;
+  animation-duration: 20s;
+  transform: rotate(15deg);
+}
+.background-bubbles li:nth-child(2) {
+  left: 10%;
+  width: 40px;
+  height: 40px;
+  animation-delay: 2s;
+  animation-duration: 15s;
+  transform: rotate(45deg);
+}
+.background-bubbles li:nth-child(3) {
+  left: 70%;
+  width: 50px;
+  height: 50px;
+  animation-delay: 4s;
+  animation-duration: 22s;
+  transform: rotate(70deg);
+}
+.background-bubbles li:nth-child(4) {
+  left: 40%;
+  width: 80px;
+  height: 80px;
+  animation-delay: 0s;
+  animation-duration: 28s;
+  transform: rotate(25deg);
+}
+.background-bubbles li:nth-child(5) {
+  left: 65%;
+  width: 30px;
+  height: 30px;
+  animation-delay: 0s;
+  animation-duration: 10s;
+  transform: rotate(55deg);
+}
+.background-bubbles li:nth-child(6) {
+  left: 75%;
+  width: 130px;
+  height: 130px;
+  animation-delay: 3s;
+  animation-duration: 30s;
+  transform: rotate(80deg);
+}
+.background-bubbles li:nth-child(7) {
+  left: 35%;
+  width: 170px;
+  height: 170px;
+  animation-delay: 7s;
+  animation-duration: 25s;
+  transform: rotate(30deg);
+}
+.background-bubbles li:nth-child(8) {
+  left: 50%;
+  width: 45px;
+  height: 45px;
+  animation-delay: 15s;
+  animation-duration: 40s;
+  transform: rotate(60deg);
+}
+.background-bubbles li:nth-child(9) {
+  left: 20%;
+  width: 25px;
+  height: 25px;
+  animation-delay: 2s;
+  animation-duration: 30s;
+  transform: rotate(90deg);
+}
+.background-bubbles li:nth-child(10) {
+  left: 85%;
+  width: 180px;
+  height: 180px;
+  animation-delay: 0s;
+  animation-duration: 18s;
+  transform: rotate(40deg);
+}
+
+@keyframes animateBubbles {
+  0% {
+    transform: translateY(0) rotate(0deg); /* Start with 0deg rotation */
+    opacity: 1;
+    border-radius: 0;
+  }
+  100% {
+    transform: translateY(-1200px) rotate(720deg); /* Rotate more as it goes up */
+    opacity: 0;
+    border-radius: 0;
+  }
+}
