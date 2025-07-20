@@ -1,63 +1,75 @@
-RantaiSehat: Sistem Manajemen Stok Farmasi Berbasis Blockchain
-Deskripsi Proyek
-RantaiSehat adalah sebuah sistem manajemen stok farmasi yang inovatif, dirancang untuk meningkatkan transparansi, efisiensi, dan integritas data dalam pengelolaan obat-obatan. Proyek ini menggabungkan kekuatan teknologi Blockchain (Ethereum lokal) dengan Google Cloud Firestore untuk menyediakan solusi yang komprehensif.
+# RantaiSehat
 
-Aplikasi ini bertujuan untuk mengatasi tantangan umum dalam manajemen stok farmasi tradisional, seperti kurangnya transparansi, integritas data yang meragukan, dan proses audit yang lambat. Dengan RantaiSehat, setiap pergerakan obat tercatat secara imutabel di blockchain, sementara metadata dan deteksi anomali dikelola secara fleksibel di Firestore.
+**Sistem Manajemen Stok Farmasi Berbasis Blockchain**
 
-Catatan Mengenai AI: Proyek Capstone ini dikembangkan dengan bantuan AI (seperti IBM Granite) selama fase pengembangan untuk mempercepat, meningkatkan, dan mendokumentasikan proses pembuatan kode. Namun, AI tidak disertakan sebagai fitur runtime dalam produk akhir ini.
+## 📌 Deskripsi Proyek
+RantaiSehat adalah aplikasi sistem manajemen stok farmasi yang inovatif yang menggabungkan teknologi **blockchain (Ethereum lokal)** dan **Google Cloud Firestore** untuk menciptakan solusi pengelolaan obat-obatan dengan transparansi, keamanan, dan integritas data yang lebih baik. Sistem ini mencatat setiap transaksi obat secara *immutable* di blockchain lokal, sehingga data sulit dimanipulasi. Metadata transaksi dan deteksi anomali dikelola di Firestore guna memberikan fleksibilitas dan real-time update. Tujuan utamanya adalah mengatasi masalah transparansi, keandalan data, dan proses audit lambat yang sering ditemui dalam sistem stok farmasi tradisional.
 
-Teknologi yang Digunakan
-Proyek RantaiSehat dibangun menggunakan tumpukan teknologi berikut:
+## 🧠 Dukungan AI (IBM Granite)
+Dalam pengembangan, proyek ini menggunakan **AI IBM Granite** melalui Replicate API untuk:
+- Menyusun validasi form dan logika bisnis transaksi
+- Memberikan saran struktur data yang optimal
+- Mendeteksi anomali seperti stok negatif dan transaksi tidak biasa
+- Membantu penulisan dokumentasi teknis dan alur sistem
 
-Frontend: HTML5, CSS3 (Bootstrap 5), JavaScript (ES6+)
+## ⚙️ Teknologi Utama
+| Komponen        | Teknologi                          |
+| --------------- | --------------------------------- |
+| Frontend        | HTML5, CSS3 (Bootstrap 5), JavaScript (ES6+) |
+| Backend & DB    | Firebase Firestore, Firebase Authentication |
+| Blockchain      | Ethereum lokal (Ganache), Smart Contract, Web3.js, MetaMask |
+| AI Support      | IBM Granite (via Replicate API)   |
+| Visualisasi     | Chart.js                         |
 
-Blockchain Interaksi: Web3.js
+## 🌟 Fitur Unggulan
+- 🔐 **Pencatatan transaksi immutable** dengan blockchain untuk jaminan data tidak bisa diubah
+- 📊 **Visualisasi stok dan riwayat transaksi** secara real-time dengan grafik interaktif
+- 🔗 **Autentikasi & koneksi real-time** menggunakan dompet MetaMask
+- 🤖 **Deteksi anomali berbasis AI** untuk mencegah kesalahan data seperti stok negatif
+- ✅ **Validasi form interaktif** untuk input data yang tepat dan akurat
+- 📱 **Tampilan responsif**, kompatibel dengan perangkat mobile dan desktop
+- 👥 **Manajemen pengguna berbasis peran (role-based access control)**
 
-Smart Contract: Solidity (dideploy di Ganache lokal untuk pengembangan dan pengujian)
+## 🚀 Cara Setup dan Menjalankan
+1. **Clone Repository**
+   ```bash
+   git clone https://github.com/username/rantaisehat.git
+   cd rantaisehat
+   ```
 
-Database (Metadata & Anomali): Google Cloud Firestore
+2. **Install Dependencies** (jika menggunakan AI helper atau backend tambahan)
+   ```bash
+   npm install
+   ```
 
-Visualisasi Data: Chart.js, Luxon
+3. **Jalankan Ganache**
+   - Pastikan Ganache sudah terpasang (GUI atau CLI).
+   - Buka Ganache, buat workspace baru, atau gunakan default server di `http://127.0.0.1:7545`.
+   - Deploy smart contract jika belum.
 
-Pelaporan (PDF): jsPDF, html2canvas
+4. **Hubungkan MetaMask dengan Ganache**
+   - Import salah satu private key dari akun Ganache ke MetaMask.
+   - Tambahkan network dengan konfigurasi:
+     - RPC: `http://127.0.0.1:7545`
+     - Chain ID: 1337 atau 5777 (sesuai Ganache).
 
-Deployment Frontend: Firebase Hosting
+5. **Jalankan Aplikasi Secara Lokal**
+   - Buka `index.html` secara langsung di browser (gunakan Live Server jika melalui VS Code).
+   - Pastikan MetaMask sudah terhubung ke jaringan Ganache.
 
-Fitur Utama
-RantaiSehat menawarkan serangkaian fitur untuk manajemen stok farmasi yang efektif:
+6. **Menggunakan Aplikasi**
+   - Tambahkan data stok obat melalui form input.
+   - Setiap transaksi tercatat di blockchain dan muncul di riwayat.
+   - Gunakan tab riwayat dan grafik untuk pemantauan stok secara real-time.
+   - Sistem AI akan memberikan peringatan otomatis jika terdeteksi anomali (misal stok minus).
 
-Pencatatan Transaksi Blockchain:
+## 📚 Referensi & Manfaat Teknologi
+- **Blockchain** meningkatkan keamanan dan transparansi rantai pasok farmasi dengan pencatatan data yang desentralisasi dan tidak dapat diubah, mencegah pemalsuan dan manipulasi data[2][4][5].
+- **Google Cloud Firestore** menyediakan database real-time dan scalable untuk metadata dan fungsi tambahan seperti deteksi anomali.
+- **AI (IBM Granite)** membantu pengembangan dengan otomasi validasi dan pendeteksian potensi kesalahan pada data input.
 
-Mencatat transaksi stok (Masuk, Keluar, Rusak, Penyesuaian Masuk/Keluar) secara imutabel di blockchain Ethereum lokal (Ganache).
-
-Menyediakan jejak audit yang transparan dan tidak dapat diubah untuk setiap pergerakan obat.
-
-Manajemen Stok Real-time & Metadata:
-
-Menampilkan kuantitas stok simulasi terkini untuk setiap obat di dashboard.
-
-Memungkinkan pengguna untuk mengubah nama tampilan obat (misalnya, nama merek) yang disimpan di Firestore, tanpa memengaruhi identitas blockchain asli.
-
-Mendukung "penghapusan logis" item stok, di mana item ditandai sebagai tidak aktif di Firestore tetapi riwayat transaksinya tetap utuh di blockchain.
-
-Deteksi & Peringatan Anomali:
-
-Secara otomatis mendeteksi dan menampilkan peringatan untuk kondisi stok yang tidak biasa, seperti stok rendah, stok kritis, atau stok negatif.
-
-Mendeteksi transaksi dengan kuantitas yang tidak biasa (misalnya, jumlah rusak yang tinggi atau pemasukan yang sangat besar).
-
-Peringatan anomali stok negatif bersifat persisten di Firestore hingga diselesaikan.
-
-Fungsi untuk membersihkan notifikasi anomali yang sudah teratasi.
-
-Visualisasi Data Interaktif:
-
-Menampilkan grafik tren stok obat yang dinamis menggunakan Chart.js, memungkinkan pengguna untuk menganalisis pergerakan stok dari waktu ke waktu.
-
-Opsi untuk melihat tren stok untuk semua obat atau memilih obat tertentu.
-
-Riwayat Transaksi & Pencarian:
-
-Menampilkan daftar lengkap semua transaksi yang tercatat.
-
-Fungsionalitas pencarian dan filter berdasarkan nama obat dan rentang tanggal untuk memudahkan audit.
+## 📞 Kontak
+Untuk pertanyaan dan kontribusi, silakan hubungi:
+- Nama: [Dzaky Radithya Abimanyu]  
+- Email: [rantaisehat-tech@gmail.com]  
+- GitHub: [github.com/dzakyradithyaa]
